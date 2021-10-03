@@ -2,7 +2,7 @@ $(document).ready(function() {
 
     // Start your code from here
     
-    var animals = ["dog", "cat", "rabbit","frog","chicken","bird","turtle"];
+    let animals = ["dog", "cat", "rabbit","frog","chicken","bird","turtle"];
     
     
     
@@ -10,8 +10,8 @@ $(document).ready(function() {
     function populateButtons(arrayToUse,classToAdd,placeHolder){
         $(placeHolder).empty();
     
-        for(var i= 0; i< arrayToUse.length; i++){
-            var a = $("<button>");
+        for(let i= 0; i< arrayToUse.length; i++){
+            let a = $("<button>");
             a.addClass(classToAdd);
             a.attr("data-type",arrayToUse[i]);
             a.text(arrayToUse[i]);
@@ -20,36 +20,36 @@ $(document).ready(function() {
     }
     
     $("#animal-buttons").on("click",".animal-button", function(){
-    $("#animals").empty()
-        var search = $(this).attr("data-type");
-        var queryUrl = "https://api.giphy.com/v1/gifs/search?q=" + search + "&api_key=dc6zaTOxFJmzC&limit=10";
+    $("#animals").empty();
+        let search = $(this).attr("data-type");
+        let queryUrl = "https://api.giphy.com/v1/gifs/search?q=" + search + "&api_key=dc6zaTOxFJmzC&limit=10";
     
         $.ajax({url:queryUrl})
         .then(function(response) {
     
-        var results = response.data
+        let results = response.data;
     
-        for (var i = 0; i <results.length; i++) {
+        for (let i = 0; i <results.length; i++) {
     
     
-            var animalDiv = $("<div class=\"animal-item\">");
-            var rating = results[i].rating
-            var p = $("<p>").text("Rating: "+ rating)
+            let animalDiv = $("<div class=\"animal-item\">");
+            let rating = results[i].rating;
+            let p = $("<p>").text("Rating: "+ rating);
     
-            var animated = results[i].images.fixed_height.url
-            var still = results[i].images.fixed_height_still.url
+            let animated = results[i].images.fixed_height.url;
+            let still = results[i].images.fixed_height_still.url;
     
-            var animalImage = $("<img>")
-            animalImage.attr("src",still)
-            animalImage.attr("data-still",still)
-            animalImage.attr("data-animate",animated)
-            animalImage.attr("data-isAnimated","false")
-            animalImage.addClass("animal-image")
+            let animalImage = $("<img>");
+            animalImage.attr("src",still);
+            animalImage.attr("data-still",still);
+            animalImage.attr("data-animate",animated);
+            animalImage.attr("data-isAnimated","false");
+            animalImage.addClass("animal-image");
     
-            animalDiv.append(p)
-            animalDiv.append(animalImage)
+            animalDiv.append(p);
+            animalDiv.append(animalImage);
     
-            $("#animals").append(animalDiv)
+            $("#animals").append(animalDiv);
     
         }
     
@@ -72,10 +72,15 @@ $(document).ready(function() {
     
     }*/
     
+    $("#add-animal").on("click" ,(e)=> {
+        e.preventDefault();
+        let newAnimal = $("#animal-input").val();
+        animals.push(newAnimal);
+        populateButtons(animals,"animal-button","#animal-buttons");
+    })
     
     
-    
-    populateButtons(animals,"animal-button","#animal-buttons")
+    populateButtons(animals,"animal-button","#animal-buttons");
         
 });
     
